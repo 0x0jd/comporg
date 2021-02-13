@@ -1,0 +1,72 @@
+﻿10 points each.  Free 50 points (40 for answers not given, and 10 for question 1).
+
+
+1 - Describe how you plan to work on the pi.  Will you use vi, VIM, EMACS, or edit the files on your PC or MAC.   How are you going to backup the files on your pi.  How will you organize the files on your pi (you can use my organization if you like).  Think about this BEFORE you lose everything you worked on this semester.  This will be a free 10 points if you write anything reasonable at all.
+
+
+-I am familiar with linux and have previously used/own a Raspberry Pi 3. I recently upgraded to the Pi 4 (8GB RAM) for this course and am looking forward to utilizing both for different and future projects. When I only have a shell, I’m more familiar with VIM, so I’ll be using that when I’m SSH’d on, but I do have an HDMI/mouse/cable and additional monitor that I’ll likely utilize to work on both at the same time, and use software similar to Sublimetext to write programs natively on the device (not remotely connected). I don’t work in Git much but think this will be a good opportunity for backing up my files to/from the Pi and if I write any on my primary workstation. If I decide not to use Git I’ll just use some sftp to transfer files/folders back and forth.
+
+
+2 - Write a program to print out "Hello Yourname", where yourname is your name.  Make sure to write your own makefile to compile and link the program.  
+
+
+-Take 
+
+
+https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
+https://makefiletutorial.com/
+
+
+3 - Using the touch command, change the date/time on all the ".s" files, and have your make command remake all the programs.  Zip your myName.s program and makefile in a file with your answers to the questions.
+Touch -t 202002090444.44 $file
+
+
+‘-t [[cc]yy]mmddhhmm[.ss]’
+
+
+4 - Explain how the touch command can be used to remake your program.
+Touch can be utilized in a fashion that will create an file with no content, i.e. ‘touch file1’ would create a file on the system named file1, it would be empty but if there were something that depended upon on file existing to work, we could satisfy that dependency with touch without actually building anything out ahead of time. 
+Touch can also be utilized as a function to modify the write time of the file, so if there was a time dependency instead of actually going through any hassle of modifying a file you can just touch it. Therefor touch in a makefile could create a file or make a file appear to be compiled without actually having to do so for the file. 
+
+
+5 - Give a brief overview of all of the Unix commands we need for this project.  Include:
+
+
+    a - mkdir
+        Creates a directory ‘file’ on nix within the current dir unless you use absolute path
+
+
+    b - rmdir
+        Removes a directory ‘file’, sometimes you’ll want to do this recursively or force it, nix is typically user friendly enough to throw a warning if there are items in a directory you are trying to remove, if you want to do it to a dir with files or more directories you’ll need to switch to rm.
+
+
+    c - ls (include a short write up of arguments like -l, -t, -d, -a, and any others you find useful)
+        Perform a listing, generally used for a directory listing like dir in windows but you can focus it to get output on or of certain file types, ls -la will perform a -l LONG listing of files that are also typically -a hidden because they begin with a . (i.e. .secretfile), -d will only show directories and -t will sort by time. I almost always default to ‘ls -la’ If I was working with a lot of files I’d probably use ‘ls -lat’ and then maybe even ‘ls -latr’ to reverse that sort order 
+
+
+    d - the difference between "cp" and "mv"
+        Cp is copy, mv is move and is often used for renaming files
+
+
+     e - rm (in particular, why use "rm -i *"  if you are using *, and never using "rm -rf " until you know what you are doing.
+        Rm is remove, the -i switch is for interactive usage of the command, the * is a wildcard for everything and in this instance is relative to the current working directory, so the -i is important if you don’t know where you are and what you’re trying to remove, as rm * would go on and just remove everything, where rm -rf is the recursive and force switch which asks no questions and removes files and dirs( everything in linux is a file) and will remove everything without prompts checking if you’re sure within that path and subsequent diretories. 
+
+
+     f - zip
+Compresses files as to make them smaller and easier to transport.
+     g - ld
+The GNU Linker file which can be utilized to 
+     h - echo
+Echo is a way to write things to standard out, it can write strings, for example echo “This is the way would” provide in standard out This is the way in the terminal. If you had a text file you could write echo “This is the way” > sometextfile.txt and it would write (while overwriting anything else in the file) the string This is the way into sometextfile.txt, you could write echo “This is the way” >> sometextfile.txt and it would append the string This is the way to a new line at the end of the file, you can also print out environment variables like echo $PATH or say you set some other variable like var1=100, if you echo $var1 it’ll print 100 to standard out
+     i - uptime
+-- obtain how long the device has been online, days, weeks months?! Might give you an indication of the type of device. Not many devices have long updtimes. 
+6 - What are the following shell variables, and what do they do (you can print them out with the echo $PATH (or shell variable):
+
+
+    a - PATH
+
+
+Echo $PATH is similar to echo %PATH% on windows, it will show the path and order of path utilized to look for programs that aren’t aliased. So if you have a program you want to run, say java, straight from the command line, you would want to make sure that where the java binary exists, there is a path to that binary so it has a reference to run that; this is a double edge sword as path variables can be used for path hijacking and running malicious programs, certainly more of an issue on windows with unquoted paths but like /tmp/ should not be the first place something looks for a program, as it’s world writable and well that’s just scary. 
+
+
+    b - HOME (and what is "cd ~")
