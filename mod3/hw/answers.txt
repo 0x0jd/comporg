@@ -1,0 +1,54 @@
+10 points each.  Free 50 points (40 for answers not given, and 10 for question 1).
+
+1 - Describe how you plan to work on the pi.  Will you use vi, VIM, EMACS, or edit the files on your PC or MAC.   How are you going to backup the files on your pi.  How will you organize the files on your pi (you can use my organization if you like).  Think about this BEFORE you lose everything you worked on this semester.  This will be a free 10 points if you write anything reasonable at all.
+
+A1)I am familiar with linux and have previously used/own a Raspberry Pi 3. Unfortunately, I stopped playing with it quite some time ago, so I'm excited to get back into it again. I recently upgraded to the Pi 4 (8GB RAM) for this course and am looking forward to utilizing both for different purposes and future projects, testing the limits of the pi 3 and comparing to the pi 4. Anyhow, on how I'm generally going to use the pi: when I only have a shell, I’m more familiar with VIM, so I’ll be using that when I’m SSH’d on, but I do have an HDMI/mouse/cable and a dual monitor setup in my office that I’ll likely utilize to work on both at the same time or as needed. to SSH on, I'll either be doing that on my workstation in a VM (kali/ubuntu/windev) or straight from my workstations windows subsystem for linux instance of Ubuntu. I would prefer to do everything from the command line, but we will see how things progress. While I'm familiar with vi/vim, I'd like to also try out other editors like nano so I'll be doing a lot of googling and working between at least those two editors. As an prior PM, and novice developer, I understand the importance of organization and directory structure for these kind of projects. I'm familiar with absolute and relative paths in nix/windows, so I'll be setting up a folder hierchy based on each week or module, I created a github account and have already ported the ssh keys over between one of my VM's and the raspberry pi, so I'm going to start using git as a project repo for backups and syncing data. I'm new to git but it's something else that's new and exciting to learn. Final note and we will see how this goes, I have already noticed that while I have high hopes to take advantage of the 64bit potential of the processor and OS's, there will be a bit of a gap in how assembly works, so I'm going to start by completing the assignments with the help of lectures and the material in the class on a 32bit image with Raspbian, while also attempting to do the same from a 64bit version of Ubuntu Desktop.
+
+2 - Write a program to print out "Hello Yourname", where yourname is your name.  Make sure to write your own makefile to compile and link the program.  
+
+https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
+https://makefiletutorial.com/
+
+3 - Using the touch command, change the date/time on all the ".s" files, and have your make command remake all the programs.  Zip your myName.s program and makefile in a file with your answers to the questions.
+
+zip hw_submit.zip hello_j.s Makefile answers.txt
+
+4 - Explain how the touch command can be used to remake your program.
+A4) Touch can be utilized in a fashion that will create a file (with no content), i.e. ‘touch file1’ would create a file on the system named file1, it would be empty but if there were something that depended upon on file existing to work, we could satisfy that dependency with touch without actually building anything out ahead of time. 
+Touch can also be utilized as a function to modify the write time of the file, so if there was a time dependency instead of actually going through any hassle of modifying a file you can just 'touch' it. Therefor touch in a makefile could create a file or make a file appear to be compiled without actually having to do so for the file. 
+
+5 - Give a brief overview of all of the Unix commands we need for this project.  Include:
+
+    a - mkdir
+        Creates a directory ‘file’ on nix within the current dir unless you use absolute path
+
+    b - rmdir
+        Removes a directory ‘file’, sometimes you’ll want to do this recursively or force it, nix is typically user friendly enough to throw a warning if there are items in a directory you are trying to remove, if you want to do it to a dir with files or more directories you’ll need to switch to rm.
+
+    c - ls (include a short write up of arguments like -l, -t, -d, -a, and any others you find useful)
+        Perform a listing, generally used for a directory listing like dir in windows but you can focus it to get output on or of certain file types, ls -la will perform a -l LONG listing of files that are also typically -a hidden because they begin with a . (i.e. .secretfile), -d will only show directories and -t will sort by time. I almost always default to ‘ls -la’ If I was working with a lot of files I’d probably use ‘ls -lat’ and then maybe even ‘ls -latr’ to reverse that sort order 
+
+    d - the difference between "cp" and "mv"
+        cp is copy, mv is move, move is often used for renaming files as mv will not leave the file behind like cp will.
+
+    e - rm (in particular, why use "rm -i *"  if you are using *, and never using "rm -rf " until you know what you are doing.
+        Rm is remove, the -i switch is for interactive usage of the command, the * is a wildcard for everything and in this instance is relative to the current working directory, so the -i is important if you don’t know where you are and what you’re trying to remove, as rm * would go on and just remove everything, where rm -rf is the recursive and force switch which asks no questions and removes files and dirs( everything in linux is a file) and will remove everything without prompts checking if you’re sure within that path and subsequent diretories. 
+		
+     f - zip
+		Compresses files as to make them smaller and easier to transport.
+		
+     g - ld
+		The GNU Linker file which can be utilized to 
+		
+     h - echo
+		echo is a way to write things to standard out, it can write strings, for example echo “This is the way would” provide in standard out This is the way in the terminal. If you had a text file you could write echo “This is the way” > sometextfile.txt and it would write (while overwriting anything else in the file) the string This is the way into sometextfile.txt, you could write echo “This is the way” >> sometextfile.txt and it would append the string This is the way to a new line at the end of the file, you can also print out environment variables like echo $PATH or say you set some other variable like var1=100, if you echo $var1 it’ll print 100 to standard out
+		
+     i - uptime
+		obtain how long the device has been online, days, weeks months?! Might give you an indication of the type of device. Not many devices have long updtimes. 
+		
+6 - What are the following shell variables, and what do they do (you can print them out with the echo $PATH (or shell variable):
+    a - PATH
+		Echo $PATH is similar to echo %PATH% on Windows, it will show the "path" and order of path(s) utilized to look for programs that aren’t aliased to run. So if you have a program you want to run, say java, straight from the command line, you would want to make sure that where the java binary exists, there is a path to that binary or file name so it has a reference to run X program (or java in this instance); this is a double edge sword as path variables can be used for path hijacking and running malicious programs, this is certainly more of an issue on windows with unquoted paths but just as an example, /tmp/ should not be the first place (therefor first location the path variable) a system looks to run a program - /tmp/ is world writable and well that’s just scary as anyone could drop say any program in there to run maliciously and it would never run from the actual path like "/usr/bin/"
+
+    b - HOME (and what is "cd ~")
+		the HOME variable, aka $HOME, can be displayed by entering 'echo $HOME' (similar to how you can find your paths from the previous question by entering 'echo $PATH'). This is important because it's the start of the user's directory structure, so if you find yourself lost by cd'ing into other directories you can always make your way home by doing 'cd ~' and it will take you to say /home/$user, in the case of a lot of non-modified pi's it'll be /home/pi... and this ties in to knowing your structure and organization, if you have a good home base structure you can use the ~ value to move/copy/remove/etc around from a relative path of home with ~... for example if I'm deep into a folder structure in Documents and I want to copy in from somewhere where I know my way from home I could do cp ~/git/comporg/$file . and it would copy FROM to where I am locally without needing to know exactly where I am or the absolute path from / (ROOT). Worth mentioning when you ssh on to your pi it'll dop you into the HOME (~) directory of whatever user you log in as ( as long as that's configured in /etc/passwd but that's another story and class I'm sure), and will provide the prompt as i.e. 'pi@raspberrypi:~ $'. Yay!
