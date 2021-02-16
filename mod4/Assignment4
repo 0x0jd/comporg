@@ -1,0 +1,10 @@
+Assignment #4
+1 - Ask a user for there age, and output it using a stack and static memory
+
+2 - Input a floating point number, and output it with just 2 decimal places accuracy.
+
+3 - Output a string with tabs between the number you output and the characters before and after it.
+
+4 - Put quotes in a formated string.
+
+5 - Run your programs in gdb tui and record the addresses of all of the labels in hex.  Print out the values of the labels before and after they are used in the functions scanf and printf.    Do this for the "age" program.
