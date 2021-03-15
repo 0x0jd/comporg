@@ -1,7 +1,7 @@
 # Title: Basic ARM Assembly Makefile template
-# Purpose: Default Makefile template
+# Purpose: Default Makefile template, week7
 # Author: Justin E
-# Edit Date: DDMMMYYYY
+# Edit Date: 15MAR2021
 # JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
 
 all: mod7 

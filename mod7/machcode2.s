@@ -25,7 +25,5 @@ mov r0, r8
 and r1, r2, #223
 mvn r3, #0
 eor r1, r2, r3
-lsl r3, r0, #22
-//mov r3, r0, lsl #22
-lsr r3, r0
-//mov r3, #1
+lsl r3, r5, r11
+lsr r3, r5, #3
