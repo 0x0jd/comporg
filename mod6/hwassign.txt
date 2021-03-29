@@ -1,11 +1,27 @@
+<<<<<<< HEAD
 
 
 On the MSCPU diagram, show the datapath for each of the following instructions:
+=======
+# Title: Basic ARM Assembly WEEK 5 Assign
+# Purpose: Program 1 - C 2 F Temperature Program
+# Author: Justin E
+# Edit Date: 01MAR2021
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+
+
+On the MSCPU diagram, show the datapath for each of the following instructions:
+
+>>>>>>> c01bc7421f8fc56707e57f619fc939a2b82a4a2a
 a. LSL r1, r2, #3
 b. ADD r1, r2, r3, LSL r4
 c. SUB r4, r8, r5, ASL #2
 
 What is the Immediate Operand2 value for the following decimal numbers? Give the 8 bit value and rotate amount.
+<<<<<<< HEAD
+=======
+
+>>>>>>> c01bc7421f8fc56707e57f619fc939a2b82a4a2a
 a. 198
 b. 260
 c. 9216
@@ -14,12 +30,17 @@ e. -75
 f. -265
 
 What is the decimal value for the following Immediate Operand2 values?
+<<<<<<< HEAD
+=======
+
+>>>>>>> c01bc7421f8fc56707e57f619fc939a2b82a4a2a
 a. MOV #0b1, 22
 b. MOV #0b1001, 28
 c. MOV #0b10010001, 30
 d. MOV #0b1001, 16
 e. MVN #0b100010
 f. MVN, #0b1001, 20
+<<<<<<< HEAD
 
 
 00010408 <main>:
@@ -78,3 +99,5 @@ mod6-new.s:37: Error: invalid constant (109) after fixup
    10458:	00021028 	.word	0x00021028
 
 
+=======
+>>>>>>> c01bc7421f8fc56707e57f619fc939a2b82a4a2a

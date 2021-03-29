@@ -16,6 +16,8 @@ zip hw_submit.zip hello_j.s Makefile answers.txt
 4 - Explain how the touch command can be used to remake your program.
 A4) Touch can be utilized in a fashion that will create a file (with no content), i.e. ‘touch file1’ would create a file on the system named file1, it would be empty but if there were something that depended upon on file existing to work, we could satisfy that dependency with touch without actually building anything out ahead of time. 
 Touch can also be utilized as a function to modify the write time of the file, so if there was a time dependency instead of actually going through any hassle of modifying a file you can just 'touch' it. Therefor touch in a makefile could create a file or make a file appear to be compiled without actually having to do so for the file. 
+In the context of our program and remaking the program with 'make'; if we touch our *.s program (or whatever program we are compiling) and it sees that the time of the *.s (assembly code) is newer than the touched file, it will recompile, if not (else) it will say. This will only be the case if within the Makefile touch $file is declared as a dependency for the target. I've included a proof of concept of touch and make with a screenshot/image with this assignment. 
+
 
 5 - Give a brief overview of all of the Unix commands we need for this project.  Include:
 
