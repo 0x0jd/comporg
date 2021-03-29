@@ -1,4 +1,4 @@
-#Simple Addition and Subtraction
+#Scanf
 .text
 .global main
 
@@ -14,19 +14,24 @@ main:
     ldr r1, =num1
     bl  scanf 
     
-# Get the two values and add them
+# Prompt and read integer input
+    ldr r0, =prompt2
+    bl  printf
+    ldr r0, =readInt
+    ldr r1, =num2
+    bl  scanf 
+
+# Get the two values divide them, storing the
+# result in r0
+    ldr r0, =num1
+    ldr r0,[r0, #0]
     ldr r1,=num2
     ldr r1,[r1, #0]
-    add r3, r1, #2
-	sub r4, r1, #2
-    
-# Printing The Message
-    ldr r0, =format1
-	mov r1, r3
-    bl  printf
+    bl __aeabi_idiv
 
-    ldr r0, =format2
-	mov r1, r4
+# Printing The Message
+    mov r1, r0
+    ldr r0, =format1
     bl  printf
 
 # End the program by returning to OS
@@ -35,8 +40,7 @@ main:
     mov pc, lr
 
 .data
-format1: .asciz "The addition +2 yields %d\n"
-format2: .asciz "The subtraction -2 yields %d\n"
+format1: .asciz "The number is %d\n"
 prompt1:
     .asciz "Enter A value for x: \n"
 prompt2:

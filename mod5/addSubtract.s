@@ -1,14 +1,25 @@
-# Prompt for two numbers and add them.  Do
-# not worry about the syntax for accessing
-# memory, just copy it for now.
+# Program Name: addSubtract.s
+# Author:		Charles Kann
+# Date:			9/19/2020
+# Purpose: 		This program illustrates addition and subtraction
+#				by prompting for two numbers and performing the
+#				operations on it.
+#
 .text
 .global main
 
 main:
 # Save return to os on stack
-    sub sp, sp, #4
+# Note this program uses r4, r5, and r6, so they 
+# must be saved and restored.  The program works if 
+# they are not saved and restore, but it is erroneous.  
+# This will be# explained in the module on function calls
+    sub sp, sp, #16
     str lr, [sp, #0]
-
+	str r4, [sp, #4]
+	str r5, [sp, #8]
+	str r6, [sp, #12]
+	
 # Prompt and read integer input
 # Note that the printf command stores
 # the input in memory for variable num1
@@ -59,7 +70,10 @@ main:
 
 #  End the program by returning to OS
     ldr lr, [sp, #0]
-    add sp, sp, #4
+	ldr r4, [sp, #4]
+	ldr r5, [sp, #8]
+	ldr r6, [sp, #12]
+    add sp, sp, #16
     mov pc, lr
 
 .data

@@ -1,4 +1,4 @@
-#Scanf
+#Scanf READ FT & INCH and PRINT FT
 .text
 .global main
 
@@ -40,13 +40,14 @@ main:
     mov pc, lr
 
 .data
-format1: .asciz "The number is %d\n"
+format1: .asciz "The sum of what was provided in inches is: %d\n"
 prompt1:
-    .asciz "Enter A value for x: \n"
+    .asciz "Enter A value in feet: \n"
 prompt2:
-    .asciz "Enter A value for y: \n"
+    .asciz "Enter A value in inches: \n"
 
 input: .asciz "%d"
 readInt: .asciz "%d"
 num1: .word 0
 num2: .word 0
+
