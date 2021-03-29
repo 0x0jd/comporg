@@ -1,13 +1,25 @@
-# Prompt for two numbers and add them.  Do
-# not worry about the syntax for accessing
-# memory, just copy it for now.
+# Program Name: OtherMultiply
+# Author:		Charles Kann
+# Date:			9/19/2020
+# Purpos:		This program shows the two extra multiply commands,
+#				mla and smull.  The MLA instruction multiplies 
+#				the values from the second and third registers, 
+#				adds the value from Ra, and stores the least 
+# 				significant 32 bits of the result in the first register. 
+#
+#				The SMULL multiples the 3rd and 4th registers, places
+#				the least significant 32 bits in the 1st register, 
+#				the most significant 32 bits in the 2nd register.
+#
 .text
 .global main
 
 main:
 # Save return to os on stack
-    sub sp, sp, #4
+    sub sp, sp, #12
     str lr, [sp, #0]
+	str r4, [sp, #4]
+	str r5, [sp, #8]
 
 # Prompt and read integer input
 # Note that the printf command stores
@@ -36,8 +48,7 @@ main:
     ldr r1, =acc
     bl  scanf 
 
-# Get the two values and add them
-# Note that they were read from memory
+# Get the two values and run the mla and smull operations on them.
     ldr r1,=num1
     ldr r1,[r1, #0]
     ldr r2, =num2
@@ -60,7 +71,8 @@ main:
 
 #  End the program by returning to OS
     ldr lr, [sp, #0]
-    add sp, sp, #4
+	ldr r4, [sp, #4]
+	ldr r5, [sp, #8]"Aditya Bajaj" <abajaj3@jhu.edu>
     mov pc, lr
 
 .data
@@ -72,8 +84,8 @@ prompt2:
     .asciz "/nEnter A value for y: "
 prompt3:
     .asciz "/nEnter A value for the accumulator: "
-
-readInt: .asciz "%d"
+readInt: 
+    .asciz "%d"
 num1: .word 0
 num2: .word 0
 acc:  .word 0

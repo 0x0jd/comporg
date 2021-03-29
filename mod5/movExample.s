@@ -10,7 +10,7 @@ main:
 
     mov r0, #0x12
     mov r1, r0
-
+   
 # Loading 32 bit immediate values
 # into a register.
     # This could be done with movw and movt, but they

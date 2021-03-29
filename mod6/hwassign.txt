@@ -1,0 +1,80 @@
+
+
+On the MSCPU diagram, show the datapath for each of the following instructions:
+a. LSL r1, r2, #3
+b. ADD r1, r2, r3, LSL r4
+c. SUB r4, r8, r5, ASL #2
+
+What is the Immediate Operand2 value for the following decimal numbers? Give the 8 bit value and rotate amount.
+a. 198
+b. 260
+c. 9216
+d. 2162688
+e. -75
+f. -265
+
+What is the decimal value for the following Immediate Operand2 values?
+a. MOV #0b1, 22
+b. MOV #0b1001, 28
+c. MOV #0b10010001, 30
+d. MOV #0b1001, 16
+e. MVN #0b100010
+f. MVN, #0b1001, 20
+
+
+00010408 <main>:
+   10408:	e24dd004 	sub	sp, sp, #4
+   1040c:	e58de000 	str	lr, [sp]
+   10410:	e59f000c 	ldr	r0, [pc, #12]	; 10424 <main+0x1c>
+   10414:	ebffffb3 	bl	102e8 <printf@plt>
+   10418:	e59de000 	ldr	lr, [sp]
+   1041c:	e28dd004 	add	sp, sp, #4
+   10420:	e1a0f00e 	mov	pc, lr
+   10424:	00021028 	.word	0x00021028
+
+
+DIR=$HOME/project/$1
+TEMPLATE=$HOME/template/
+if [ ! -d "$DIR" ]; then
+	mkdir $DIR
+	cp $TEMPLATE/first.asm $DIR/$1.asm
+	cp $TEMPLATE/lib.asm $DIR/
+	cat $TEMPLATE/Makefile | sed "s/XX/$1/g" > $DIR/Makefile
+	echo -e "Successfully created $1!"
+else
+	echo -e "Directory Exists!\n"
+fi
+
+
+/home/dev/git/comporg
+
+/home/dev
+
+
+mod6-new.s:37: Error: invalid constant (109) after fixup
+    37	    mvn r12, #265
+    
+00010408 <main>:
+   10408:	e24dd004 	sub	sp, sp, #4
+   1040c:	e58de000 	str	lr, [sp]
+   10410:	e59f0040 	ldr	r0, [pc, #64]	; 10458 <main+0x50>
+   10414:	ebffffb3 	bl	102e8 <printf@plt>
+   10418:	e3a01001 	mov	r1, #1
+   1041c:	e3a02001 	mov	r2, #1
+   10420:	e3a03001 	mov	r3, #1
+   10424:	e3a04001 	mov	r4, #1
+   10428:	e3a05001 	mov	r5, #1
+   1042c:	e1a01182 	lsl	r1, r2, #3
+   10430:	e0821413 	add	r1, r2, r3, lsl r4
+   10434:	e0484105 	sub	r4, r8, r5, lsl #2
+   10438:	e3a070c6 	mov	r7, #198	; 0xc6
+   1043c:	e3a08f41 	mov	r8, #260	; 0x104
+   10440:	e3a09b09 	mov	r9, #9216	; 0x2400
+   10444:	e3a0a821 	mov	sl, #2162688	; 0x210000
+   10448:	e3e0b04b 	mvn	fp, #75	; 0x4b
+   1044c:	e59de000 	ldr	lr, [sp]
+   10450:	e28dd004 	add	sp, sp, #4
+   10454:	e1a0f00e 	mov	pc, lr
+   10458:	00021028 	.word	0x00021028
+
+
