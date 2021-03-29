@@ -4,17 +4,17 @@
 # Edit Date: DDMMMYYYY
 # JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
 
-all: XX 
+all: MOD8 
  
-XX: XX.o lib.o
+MOD8: MOD8.o lib.o
 	gcc -o $@ $+
  
-XX.o : XX.s 
+MOD8.o : MOD8.s 
 	as -o $@ $<
 
 lib.o: lib.asm
 	as -o lib.o lib.asm
  
 clean:
-	rm -vf XX *.o
+	rm -vf MOD8 *.o
 
