@@ -1,0 +1,16 @@
+
+
+1 - In the file conversions.s you will implement three functions.   
+
+    a. The first is k2m, which will convert kilometers to miles by multiplying by 10 and dividing by 16.
+
+    b, The second function  is mph(int miles, int hours), which will calculate miles per hour by dividing miles (in r0), by hours (in r1), and returning the value in r0.   
+
+    c. The third function is kph, and MUST be calculated by converting the kilometers to miles, and calling mph().  You must call the mph function, do not calculate the kph in this method.
+
+Create a main method in a separate file that will call the kph and mph functions to test them.  The function must allow a value to be entered for distance and time in both cases, and print out an answer.  You must create good code, including good comments on the methods, and well formatted code.
+
+The first 3 methods are 50 points.  10 points for the assembly main method to call this.  
+
+2.  Write the functions CToF and InchesToFt and add it to the conversions.s file. Write a main program to call it and test it.  (40 points)  For the InchesToFt, you can earn an extra 10 points by using implied decimals to print out the InchesToFt.
+
