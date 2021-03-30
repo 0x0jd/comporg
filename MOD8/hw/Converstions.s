@@ -11,9 +11,9 @@ End Preamble */
 #.global Ft2Inches
 .global k2m
 .global mph
-.global kph
-.global in2ft
-.global c2f
+#.global kph
+#.global in2ft
+#.global c2f
 
 # Could alpha sort and use commas
 #.global c2f, in2ft, k2m, kph, mph
@@ -62,8 +62,8 @@ Ft2Inches:
 k2m:
 # Convert by multiplying by 10 and dividing by 16
     #function prologue
-    #SUB sp, sp, #4
-    #STR lr, [sp, #0]
+    SUB sp, sp, #4
+    STR lr, [sp, #0]
 
     #function conversion
     MOV r3, #10
@@ -73,15 +73,15 @@ k2m:
     #answer is returned in r0
 
     #function epilogue
-    #LDR lr, [sp, #0]
-    #ADD sp, sp, #4
+    LDR lr, [sp, #0]
+    ADD sp, sp, #4
     MOV pc, lr
 
 mph:
 # Calc miles by dividing miles (r0) by hours (r1) and return in r0
     # function prologue
-    #SUB sp, sp, #4
-    #STR lr, [sp, #0]
+    SUB sp, sp, #4
+    STR lr, [sp, #0]
 
     #function conversion
     MOV r1, r1
@@ -90,15 +90,15 @@ mph:
     #answer is returned in r0
 
     #function epilogue
-    #LDR lr, [sp, #0]
-    #ADD sp, sp, #4
+    LDR lr, [sp, #0]
+    ADD sp, sp, #4
     MOV pc, lr
-
+/*
 kph:
 # Same as k2m excep calls mph. You must call the mph function, do not calculate the kph in this method.
     # function prologue
-    #SUB sp, sp, #4
-    #STR lr, [sp, #0]
+    SUB sp, sp, #4
+    STR lr, [sp, #0]
 
     #function
     MOV r1, r1
@@ -106,9 +106,10 @@ kph:
     bl k2m
 
     # function epilogue
-    #LDR lr, [sp, #0]
-    #ADD sp, sp, #4
+    LDR lr, [sp, #0]
+    ADD sp, sp, #4
     MOV pc, lr
+*/
 
 
 /*

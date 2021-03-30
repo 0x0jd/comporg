@@ -1,6 +1,6 @@
 /* Preamble
 # Title: ARM Assembly Template
-# Purpose: MOD8 Program 1 Main
+# Purpose: MOD8 Program 2, Function 2 Test.
 # Author: Justin E
 # Edit Date: 29MAR2021
 # JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
@@ -40,7 +40,6 @@ main:
     #branch and link to function
     bl mph
 
-
     mov r1, r0
     ldr r0, =output
     bl printf
@@ -57,3 +56,4 @@ main:
     input: .asciz "%d"
     num1: .word 0
     num2: .word 0
+    output: .asciz "Your mph is: %d\n"

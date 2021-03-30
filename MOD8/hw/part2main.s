@@ -1,21 +1,21 @@
 /* Preamble
 # Title: ARM Assembly Template
-# Purpose: The first is k2m, which will convert kilometers to miles by multiplying by 10 and dividing by 16.
+# Purpose: MOD8 HW Assign Part 2: Write the functions CToF and InchesToFt and add it to the conversions.s file. Write a main program to call it and test it.  (40 points)  For the InchesToFt, you can earn an extra 10 points by using implied decimals to print out the InchesToFt.
 # Author: Justin E
-# Edit Date: 29MAR2021
+# Edit Date: 30MAR2021
 # JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
 End Preamble */
 
-# kmh.s
-.text
-.global main
+# CToF and InchesToFt
+    .text
+    .global main
 
 main:
 # Save return to os on stack
     sub sp, sp, #4
     str lr, [sp, #0]
 
-# Prompt For An Input (Miles)
+# Prompt For An Input
     ldr r0, =prompt1
     bl  printf
 
@@ -28,15 +28,14 @@ main:
     add sp, sp, #4
 
 #Convert
-    bl F2C
+    bl CtoF
     mov r1, r0 
 
 # Printing The Message
     ldr r0, =format1
     bl printf
 
-# Return to the OS, pop
-    mov r0, #0
+# Return to the OS
     ldr lr, [sp, #0]
     add sp, sp, #4
     mov pc, lr
