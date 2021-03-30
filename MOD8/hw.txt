@@ -1,0 +1,431 @@
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: 
+# Author: Justin E
+# Edit Date: DDMMYYYY
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+.text
+.global F2C 
+.global Ft2Inches
+
+
+F2C:
+# Push stack
+    sub sp, sp, #4
+    str lr, [sp, #0]
+
+    mov r1, #-32
+    add r0, r0, r1
+    mov r1, #5 
+    mul r0, r0, r1
+    mov r1, #9
+    bl __aeabi_idiv
+    add r5, r5, r6
+
+# Pop stack
+    ldr lr, [sp, #0]
+    add sp, sp, #4
+    mov pc, lr
+
+Ft2Inches:
+# Push stack
+    sub sp, sp, #4
+    str lr, [sp, #0]
+    mov r1, #12
+    mul r0, r0, r1
+
+# Pop stack
+    ldr lr, [sp, #0]
+    add sp, sp, #4
+    mov pc, lr
+
+#inches to feet, added by justin
+in2ft:
+    #function prologue
+    SUB sp, sp, #4
+    STR lr, [sp, #0]
+     
+    #function conversion inches to ft
+    MOV r3, #10
+    MUL r0, r0,r3
+    MOV r1, #12
+    bl __aeabi_idiv
+    #answer is returned in r0
+
+    #function epilogue
+    LDR lr, [sp, #0]
+    ADD sp, sp, #4
+    MOV pc, lr
+
+#celcius to f, added by justin
+c2f:
+
+.data
+    output1: .asciz "After call to div\n"
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: 
+# Author: Justin E
+# Edit Date: DDMMYYYY
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+# F2C.s
+# An assembly program to calculate temperature from C to F
+    .text
+    .global main
+
+main:
+# Save return to os on stack
+    sub sp, sp, #4
+    str lr, [sp, #0]
+
+# Prompt For An Input
+    ldr r0, =prompt1
+    bl  printf
+
+#Scanf
+    ldr r0, =input1
+    sub sp, sp, #4
+    mov r1, sp
+    bl  scanf
+    ldr r0, [sp, #0]
+    add sp, sp, #4
+
+#Convert
+    bl F2C
+    mov r1, r0 
+
+# Printing The Message
+    ldr r0, =format1
+    bl printf
+
+# Return to the OS
+    ldr lr, [sp, #0]
+    add sp, sp, #4
+    mov pc, lr
+
+.data
+    prompt1: .asciz "Enter the Temp in F you want in C: \n"
+    format1:  .asciz "\nThe temp in C is %d\n"
+    input1: .asciz "%d"
+    num1: .word 0
+
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: 
+# Author: Justin E
+# Edit Date: DDMMYYYY
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+# Ft2Inches.s
+# An assembly program to calculate Feet to Inches
+    .text
+    .global main
+
+main:
+# Save return to os on stack
+    sub sp, sp, #4
+    str lr, [sp, #0]
+
+# Prompt For An Input in feet
+    ldr r0, =prompt1
+    bl  printf
+
+#Scanf
+    ldr r0, =input1
+    sub sp, sp, #4
+    mov r1, sp
+    bl  scanf
+    ldr r0, [sp, #0]
+    add sp, sp, #4
+
+#Convert
+    bl Ft2Inches
+    mov r1, r0 
+
+# Print inches
+    ldr r0, =format1
+    bl printf
+
+# Return to the OS
+    ldr lr, [sp, #0]
+    add sp, sp, #4
+    mov pc, lr
+
+.data
+    prompt1: .asciz "Enter the length in feet you want in inches: \n"
+    format1:  .asciz "\nThe length in inches is  %d\n"
+    input1: .asciz "%d"
+    num1: .word 0
+
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: Conversions.s converts input ft & in into decimal value of ft
+# Author: Justin E
+# Edit Date: 29MAR2021
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+.text
+inches2Ft:
+#function prologue
+    SUB sp, sp, #4
+    STR lr, [sp, #0]
+     
+#function conversion inches to ft
+    MOV r3, #10
+    MUL r0, r0,r3
+    MOV r1, #12
+    bl __aeabi_idiv
+    #answer is returned in r0
+
+#function epilogue
+    LDR lr, [sp, #0]
+    ADD sp, sp, #4
+    MOV pc, lr
+    
+#end inches2Ft
+t: .asciz “r1 = “
+#end increment
+
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: Main, prompt for inches, convert to feet, print after calling in2ft function
+# Author: Justin E
+# Edit Date: 29MAR2021
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+    .text
+    .global main
+
+main:
+# Save return to os on stack
+    MOV sp, sp, #4
+    STR lr, [sp, #0]
+
+# Prompt For An Input in inches
+    LDR r0, =prompt1
+    BL  printf
+
+# Read inches
+    LDR r0, =input1
+    SUB sp, sp, #4
+    MOV r1, sp
+    BL  scanf
+    LDR r0, [sp, #0]
+    ADD sp, sp, #4
+
+# Convert
+    BL inches2Ft
+    MOV r4, r0
+
+# Printing The Message
+    LDR r0, =format1
+    BL  printf
+    MOV r0, r4
+    MOV r1, #10
+    BL printScaledInt
+    LDR r0, =newline
+    BL printf
+
+# Return to the OS
+    LDR lr, [sp, #0]
+    ADD sp, sp, #4
+    MOV pc, lr
+
+.data
+    prompt1: .asciz "Enter the length in inches you want in feet: \n"
+    format1: .asciz "\nThe length in feet is "
+    input1:  .asciz "%d"
+    newline: .asciz "\n"
+    num1: .word 0
+
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: The first is k2m, which will convert kilometers to miles by multiplying by 10 and dividing by 16.
+# Author: Justin E
+# Edit Date: 29MAR2021
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+# kmh.s
+    .text
+    .global main
+
+main:
+# Save return to os on stack
+    sub sp, sp, #4
+    str lr, [sp, #0]
+
+# Prompt For An Input
+    ldr r0, =prompt1
+    bl  printf
+
+#Scanf
+    ldr r0, =input1
+    sub sp, sp, #4
+    mov r1, sp
+    bl  scanf
+    ldr r0, [sp, #0]
+    add sp, sp, #4
+
+#Convert
+    bl F2C
+    mov r1, r0 
+
+# Printing The Message
+    ldr r0, =format1
+    bl printf
+
+# Return to the OS, pop
+    mov r0, #0
+    ldr lr, [sp, #0]
+    add sp, sp, #4
+    mov pc, lr
+
+.data
+    prompt1: .asciz "Enter the Temp in F you want in C: \n"
+    format1:  .asciz "\nThe temp in C is %d\n"
+    input1: .asciz "%d"
+    num1: .word 0
+
+#  FileName:	libTypes.s
+#  Author:	Chuck Kann
+#  Date:	1/14/2021
+#  Purpose:	Function for use on types
+#
+#            Types defined and functions:
+#		ScaledInteger
+#            printScaledInt
+#
+#  Changes:	1/14/2021 - Initial release
+.global printScaledInt
+
+#  Function: 	printScaledInt
+#  Purpose: 	to print a scaled integer value
+#               with the decimal point in the
+#               correct place
+#
+#  Input: 	r0 - value to print
+#               r1 - scale in
+#
+#  Output:	r0 - pointer to string that contains
+#                    the converted value
+.text
+PrintScaledInt:
+    # push
+    SUB sp, #4
+    STR lr, [sp, #0]
+
+    # save value in r0 and r1
+    MOV r4, r0
+    MOV r5, r1
+ 
+    # get whole part and save in r7
+    bl __aeabi_idiv // r0/r1, result in r0
+    MOV r6, r0
+    #get decimal part and save in r7
+    MUL r7, r5, r6
+    SUB r7, r4, r7
+
+    # print the whole part
+    LDR r0, = __PSI_format
+    MOV r1, r6
+    bl printf
+    # print the dot
+    LDR r0, = __PSI_dot
+    bl printf
+    # print the decimal part
+    LDR r0, = __PSI_format
+    MOV r1, r7
+    bl printf
+
+    # pop and return
+    LDR lr, [sp, #0]
+    ADD sp, #4
+    MOV pc, lr
+
+.data
+    __PSI_format: .asciz "%d"
+    __PSI_dot: .asciz "."
+#end printScaledInt
+
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: 
+# Author: Justin E
+# Edit Date: DDMMYYYY
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+.text
+.global main
+
+/*Main program */
+main:
+    sub sp, sp, #4
+    str lr, [sp, #0]
+
+    ldr r0, =message
+    bl printf
+
+    ldr lr, [sp, #0]
+    add sp, sp, #4
+    mov pc, lr
+
+/*Data Section of the program */
+.data
+    message: .asciz "Justin E\n"
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: The second function is mph(int miles, int hours), which will calculate miles per hour by dividing miles (in r0), by hours (in r1), and returning the value in r0. 
+# Author: Justin E
+# Edit Date: 29MAR2021
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+# mph.s
+    .text
+    .global main
+
+main:
+# Save return to os on stack
+    sub sp, sp, #4
+    str lr, [sp, #0]
+
+# Prompt For An Input
+    ldr r0, =prompt1
+    bl  printf
+
+#Scanf
+    ldr r0, =input1
+    sub sp, sp, #4
+    mov r1, sp
+    bl  scanf
+    ldr r0, [sp, #0]
+    add sp, sp, #4
+
+#Convert
+    bl F2C
+    mov r1, r0 
+
+# Printing The Message
+    ldr r0, =format1
+    bl printf
+
+# Return to the OS
+    ldr lr, [sp, #0]
+    add sp, sp, #4
+    mov pc, lr
+
+.data
+    prompt1: .asciz "Enter the Temp in F you want in C: \n"
+    format1:  .asciz "\nThe temp in C is %d\n"
+    input1: .asciz "%d"
+    num1: .word 0
+
