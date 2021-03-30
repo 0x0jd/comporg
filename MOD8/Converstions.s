@@ -10,6 +10,7 @@ End Preamble */
 .global F2C 
 .global Ft2Inches
 
+
 F2C:
 # Push stack
     sub sp, sp, #4
@@ -39,6 +40,27 @@ Ft2Inches:
     ldr lr, [sp, #0]
     add sp, sp, #4
     mov pc, lr
+
+#inches to feet, added by justin
+in2ft:
+    #function prologue
+    SUB sp, sp, #4
+    STR lr, [sp, #0]
+     
+    #function conversion inches to ft
+    MOV r3, #10
+    MUL r0, r0,r3
+    MOV r1, #12
+    bl __aeabi_idiv
+    #answer is returned in r0
+
+    #function epilogue
+    LDR lr, [sp, #0]
+    ADD sp, sp, #4
+    MOV pc, lr
+
+#celcius to f, added by justin
+c2f:
 
 .data
     output1: .asciz "After call to div\n"
