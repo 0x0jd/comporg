@@ -1,23 +1,33 @@
 # Title: Basic ARM Assembly Makefile template
 # Purpose: Default Makefile template
 # Author: Justin E
-# Edit Date: DDMMMYYYY
+# Edit Date: 30MAR2021
 # JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
 
-all:  
+all: k2m kph mph part2main
 
-MYLIBS = Conversions.o
-CC = gcc
+MYLIBS=Conversions.o
+CC=gcc
 
-: MOD8.o lib.o
-	gcc -o $@ $+
- 
-MOD8.o : MOD8.s 
-	as -o $@ $<
+k2m: k2m.o $(MYLIBS)
+	$(CC) $@.o $(MYLIBS) -g -o $@
+	./$@
 
-lib.o: lib.asm
-	as -o lib.o lib.asm
- 
+kph: kph.o $(MYLIBS)
+	$(CC) $@.o $(MYLIBS) -g -o $@
+	./$@
+
+mph: mph.o $(MYLIBS)
+	$(CC) $@.o $(MYLIBS) -g -o $@
+	./$@
+
+part2main: part2main.o $(MYLIBS)
+	$(CC) $@.o $(MYLIBS) -g -o $@
+	./$@
+
+.s.o:
+	$(CC) $(@:.o=.s) -g -c -o $@
+
 clean:
-	rm -vf MOD8 *.o
+	rm *.o k2m kph mph part2main
 
