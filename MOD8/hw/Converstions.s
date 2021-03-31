@@ -12,11 +12,11 @@ End Preamble */
 .global k2m
 .global mph
 #.global kph
-#.global in2ft
-#.global c2f
+.global InchesToFt
+.global CToF
 
 # Could alpha sort and use commas
-#.global c2f, in2ft, k2m, kph, mph
+#.global CToF, InchesToFt, k2m, kph, mph
 
 /*
 # Example from Notes
@@ -116,9 +116,9 @@ kph:
 # MOD8 Assign Prog 2:
 Write the functions CToF and InchesToFt and add it to the conversions.s file. Write a main program to call it and test it.  (40 points)  For the InchesToFt, you can earn an extra 10 points by using implied decimals to print out the InchesToFt.
 */
-/*
+
 #inches to feet, added by justin
-in2ft:
+InchesToFt:
     #function prologue
     SUB sp, sp, #4
     STR lr, [sp, #0]
@@ -136,25 +136,24 @@ in2ft:
     MOV pc, lr
 
 #Celsius to Fahrenheit  added by justin
-c2f:
+CToF:
     #function prologue
     SUB sp, sp, #4
     STR lr, [sp, #0]
 
-    #function conversion c2f
-    MOV r3, #10
-    MUL r0, r0,r3
-    MOV r1, #12
+    #function conversion c2f, pass passed r0 value to r3
+    mov r3, r0
+    mov r4, #9
+    mov r5, #5
     bl __aeabi_idiv
     #answer is returned in r0
+    mul r0, r0, r3
+    add r0, #32
 
     #function epilogue
     LDR lr, [sp, #0]
     ADD sp, sp, #4
     MOV pc, lr
-*/
-
-
 
 
 .data

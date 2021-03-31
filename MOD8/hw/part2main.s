@@ -15,34 +15,54 @@ main:
     sub sp, sp, #4
     str lr, [sp, #0]
 
-# Prompt For An Input
+    #User Input prompt1 (Celcius value)
     ldr r0, =prompt1
-    bl  printf
-
-#Scanf
-    ldr r0, =input1
-    sub sp, sp, #4
-    mov r1, sp
-    bl  scanf
-    ldr r0, [sp, #0]
-    add sp, sp, #4
-
-#Convert
-    bl CtoF
-    mov r1, r0 
-
-# Printing The Message
-    ldr r0, =format1
     bl printf
 
-# Return to the OS
+    #Read User Input C into num1
+    ldr r0, =input
+    ldr r1, =num1
+    bl scanf
+
+    #User Input prompt2 (Inches value)
+    ldr r0, =prompt2
+    bl printf
+
+    #Read User Input in into num2
+    ldr r0, =input
+    ldr r1, =num2
+    bl scanf
+
+    # load miles into r0 and hours into r1
+    ldr r0, =num1
+    ldr r0, [r0, #0]
+    #branch and link to CToF conversion, return F in r0 and print F
+    bl CToF
+
+    mov r1, r0
+    ldr r0, =output
+    bl printf
+
+    ldr r1, =num2
+    ldr r1, [r1, #0]
+    #branch and link to InchesToFt conversion, return Ft in r0
+    bl InchesToFt
+
+    mov r1, r0
+    ldr r0, =output2
+    bl printf
+
+    #Main Epilogue
+    mov r0, #0
     ldr lr, [sp, #0]
     add sp, sp, #4
     mov pc, lr
 
 .data
-    prompt1: .asciz "Enter the Temp in F you want in C: \n"
-    format1:  .asciz "\nThe temp in C is %d\n"
-    input1: .asciz "%d"
+    prompt1: .asciz "Please enter an integer for Celcius: \n"
+    prompt2: .asciz "Please enter an integer for Inches: \n"
+    input: .asciz "%d"
     num1: .word 0
-
+    num2: .word 0
+    output: .asciz "Your Fahrenheit is: %d\n"
+    output2: .asciz "Your foot/feet is/are: %d\n"
