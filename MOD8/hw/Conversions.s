@@ -1,6 +1,6 @@
 /* Preamble
 # Title: ARM Assembly Template
-# Purpose:
+# Purpose: Conversions.s acts as a library for all converstion function requests from individual programs.
 # Author: Justin E
 # Edit Date: DDMMYYYY
 # JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
@@ -60,12 +60,12 @@ Ft2Inches:
 */
 
 k2m:
-# Convert by multiplying by 10 and dividing by 16
+    # Convert by multiplying by 10 and dividing by 16
     #function prologue
     SUB sp, sp, #4
     STR lr, [sp, #0]
 
-    #function conversion
+    #function conversion of kilometers to miles
     MOV r3, #10
     MUL r0, r0, r3
     MOV r1, #16
@@ -78,12 +78,12 @@ k2m:
     MOV pc, lr
 
 mph:
-# Calc miles by dividing miles (r0) by hours (r1) and return in r0
+    # Calc miles by dividing miles (r0) by hours (r1) and return in r0
     # function prologue
     SUB sp, sp, #4
     STR lr, [sp, #0]
 
-    #function conversion
+    #function conversion mph
     MOV r1, r1
     MOV r0, r0
     bl __aeabi_idiv
@@ -101,9 +101,12 @@ kph:
     STR lr, [sp, #0]
 
     #function
-    MOV r1, r1
-    MOV r0, r0
+    MOV r4, r1
+    MOV r3, r0
     bl k2m
+
+    mov r0, r3
+    bl mph
 
     # function epilogue
     LDR lr, [sp, #0]
@@ -143,8 +146,8 @@ CToF:
 
     #function conversion c2f, pass passed r0 value to r3
     mov r3, r0
-    mov r4, #9
-    mov r5, #5
+    mov r0, #9
+    mov r1, #5
     bl __aeabi_idiv
     #answer is returned in r0
     mul r0, r0, r3
