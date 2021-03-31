@@ -11,19 +11,19 @@ CC=gcc
 
 k2m: k2m.o $(MYLIBS)
 	$(CC) $@.o $(MYLIBS) -g -o $@
-	./$@
+#	./$@
 
 kph: kph.o $(MYLIBS)
 	$(CC) $@.o $(MYLIBS) -g -o $@
-	./$@
+#	./$@
 
 mph: mph.o $(MYLIBS)
 	$(CC) $@.o $(MYLIBS) -g -o $@
-	./$@
+#	./$@
 
 part2main: part2main.o $(MYLIBS)
 	$(CC) $@.o $(MYLIBS) -g -o $@
-	./$@
+#	./$@
 
 .s.o:
 	$(CC) $(@:.o=.s) -g -c -o $@
