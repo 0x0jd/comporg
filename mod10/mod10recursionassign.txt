@@ -1,0 +1,77 @@
+Write a program that calculates the sum of the digits of an integer x. For example:
+
+If x is 234, the function should return 2 + 3 + 4, that is, 9.
+If x is 12, the function should return 1 + 2, which is 3.
+If x is 39, the function should return 12.
+If x is negative, ignore the minus sign. For example, -12 and 12 both return 3.
+
+Your program should use at least three functions, one to obtain the value of x from user, one to obtain each digit in the number x, and one to add all the digits together to get the sum. (You can call a function inside of another function.)
+
+Extra Credit (if it can be done, if not it doesn't matter):
+
+Using a recursive function to finish the job. (You may need only two functions, one to obtain the value of x, and the other is a recursive function to get the sum of the digits.)
+Answer:
+
+#include <stdio.h>
+
+#define CHAR_BIT 8
+
+unsigned int getAbs(int n)
+
+{
+
+  int const mask = n >> (sizeof(int) * CHAR_BIT - 1);
+
+  return ((n + mask) ^ mask);
+
+}
+
+int sumofdigits(int n)
+
+{
+
+int s1=0,rem=0;
+
+while(n!=0)
+
+{
+
+rem=n%10;
+
+s1=s1+rem;
+
+n=n/10;
+
+}
+
+return s1;
+
+}
+
+int main()
+
+{
+
+int n,sum=0;
+
+printf("enter num\n");
+
+scanf("%d",&n);
+
+if(n<<0)
+
+{
+
+n=getAbs(n);
+
+}
+
+sum=sumofdigits(n);
+
+printf("sumof digits is:%d\n",sum);
+
+return 0;
+
+}
+
+output
