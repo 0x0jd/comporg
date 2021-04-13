@@ -1,0 +1,78 @@
+/* Fibonacci.s */
+/* This program will ask the user for a number, */
+/* then output that amount of terms in the */
+/* fibonacci series. */
+
+/* 1. get input and store it */
+/* 2. call loop */
+/* 3. within loop there is doMath and output */
+/* 4. doMath retrieves values, adds them, and re-stores */
+/* 5. output retrieves num3, printf's it */
+/* 6. loop contains BEQ for iterations to exit */
+
+	.global main
+	.func main
+
+main:
+	PUSH {LR}
+	BAL _loop
+
+_loop:
+	BL _doMath
+	BL _output
+	
+	LDR R0, =iterations
+	LDR R0, [R0]
+	CMP R0, #0x0				@ set flags
+	BEQ _exit					@ if (R0 == 0) { exit(); }
+	BNE _loop					@ else { loop(); }
+
+_doMath:
+	LDR R1, =num3				@ next in series, will be printed in R1
+	LDR R1, [R1]
+	LDR R2, =num2
+	LDR R2, [R2]
+	LDR R3, =num1
+	LDR R3, [R3]
+	MOV R3, R2					@ shifts
+	MOV R2, R1
+	ADD R1, R2, R3				@ add them
+	
+	LDR R4, =num3				@ write back to preserve values b4 printf, R4 holds next addreess
+	STR R1, [R4]
+	LDR R4, =num2
+	STR R2, [R4]
+	LDR R4, =num1
+	STR R3, [R4]
+	
+	LDR R0, =iterations
+	LDR R0, [R0]
+	SUB R0, R0, #0x1			@ R0--;
+	LDR R1, =iterations
+	STR R0, [R1]				@ store counter back
+	
+	MOV R15, R14				@ returns to _loop
+
+_output:
+	LDR R0, =string				@ seed printf
+	LDR R1, =num3
+	LDR R1, [R1]				@ seed printf
+	BL printf
+	MOV R15, R14				@ returns to _loop
+
+_exit:
+	POP {PC}
+	
+	
+	
+.data
+string:
+	.asciz "%d\n"  @ sent to printf, C-formatted string (asciz)
+num1:
+	.word 0
+num2:
+	.word 1
+num3:
+	.word 1
+iterations:  @ comes from the user, remaining cycles left .word 5
+
