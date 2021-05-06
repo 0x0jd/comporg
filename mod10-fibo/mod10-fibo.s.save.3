@@ -1,0 +1,88 @@
+/* Preamble
+# Title: ARM Assembly Template
+# Purpose: Implement a program recursively calculate a Fibonacci number.
+# Author: Justin E
+# Edit Date: 08APR2021
+# JHU - COMP ORG - EN.605.204.8VL.SP21 Computer Organization
+End Preamble */
+
+.text
+.global main
+main:
+    # push
+    sub sp, sp, #4
+    str lr, [sp]
+
+    ldr r0, =inputprompt
+    bl printf
+
+    ldr r0, =input
+    ldr r1, =num1
+    bl scanf
+    ldr r0, =num1
+    ldr r0, [r0, #0]
+
+    bl fibo
+    mov r1, r0
+    ldr r0, =output
+    bl printf
+
+    # pop
+    ldr lr, [sp]
+    add sp, sp, #4
+    mov pc, lr
+
+.data
+    num1: .word 0
+    inputprompt: .asciz "Please provide the Fibonacci sequence number you'd like: \n"
+    output: .asciz "That Fibonacci number is %d\n"
+    input: .asciz "%d"
+
+.text
+fibo:
+
+    # push
+    sub sp, sp, #12
+    str lr, [sp, #0]
+    str r4, [sp, #4]
+    str r5, [sp, #8]
+
+    mov r4, r0 // pass in Fibo input from main to r4, save
+
+    # logic - if test
+    
+    cmp r4, #0
+    bne Else
+
+    Else:
+        cmp r0, #1
+        bne Else2
+        mov r0, #1
+        b Return
+
+    Else2:
+        // compute fib(n-1) first
+        ldr r0, r4
+        sub r0, r0, #1 // r0 = n-1
+        push {r1}
+        bl fib // calls fibo with (n-1)
+
+        push {r0}
+        // Compute fib(n-2) second
+        ldr r0, r4 // r0 = n
+        sub r0, r0, #2 // r0 = n-2
+
+        pop {r0, r1}
+        add r0, r1, r0 // r0 = fib(n-1) + fib(n-2), r0 will be return value
+        b Return
+    EndIf:
+
+    Return:
+    # pop
+    ldr lr, [sp, #0]
+    ldr r4, [sp, #4]
+    ldr r5, [sp, #8]
+    add sp, sp, #12
+    mov pc, lr
+    
+# End fibo

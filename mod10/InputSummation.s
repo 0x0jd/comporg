@@ -6,7 +6,10 @@ main:
     sub sp, sp, #4
     str lr, [sp]
 
-    mov r0, #8
+    mov r0, =
+
+
+
     bl Summation
     mov r1, r0
     ldr r0, =output
